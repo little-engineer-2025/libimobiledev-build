@@ -26,3 +26,7 @@
 	path = libtatsu
 	url = https://github.com/libimobiledevice/libtatsu.git
 	branch = master
+[submodule "usbmuxd"]
+	path = usbmuxd
+	url = https://github.com/libimobiledevice/usbmuxd.git
+	branch = master

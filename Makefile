@@ -20,6 +20,7 @@ clean:
 	cd libtatsu               && ( [ ! -e Makefile ] || make clean )
 	cd libimobiledevice       && ( [ ! -e Makefile ] || make clean )
 	cd libplist               && ( [ ! -e Makefile ] || make clean )
+	cd usbmuxd                && ( [ ! -e Makefile ] || make clean )
 
 .PHONY: custom
 custom:
@@ -27,8 +28,9 @@ custom:
 
 .PHONY: deps
 deps: custom
-	sudo dnf install -y libtool clang autoconf automake libusb1-devel libcurl-devel
+	sudo dnf install -y libtool clang autoconf automake libusb1-devel libcurl-devel libzip-devel
 	git submodule init
+	[ -e usbmuxd ] || git submodule add -b master https://github.com/libimobiledevice/usbmuxd.git usbmuxd
 	[ -e idevicerestore ] || git submodule add -b master https://github.com/libimobiledevice/idevicerestore.git idevicerestore
 	[ -e libirecovery ] || git submodule add -b master https://github.com/libimobiledevice/libirecovery.git libirecovery
 	[ -e libimobiledevice-glue ] || git submodule add -b master https://github.com/libimobiledevice/libimobiledevice-glue.git libimobiledevice-glue
@@ -47,6 +49,7 @@ build:
 	$(MAKE) build-libtatsu
 	$(MAKE) build-libimobiledevice
 	$(MAKE) build-idevicerestore
+	$(MAKE) build-usbmuxd
 
 .PHONY: build-libtatsu
 build-libtatsu:
@@ -75,4 +78,8 @@ build-libirecovery:
 .PHONY: build-idevicerestore
 build-idevicerestore:
 	cd idevicerestore && ./autogen.sh && ./configure --prefix="$(PREFIX)" && make && make install
+
+.PHONY: build-usbmuxd
+build-usbmuxd:
+	cd usbmuxd && ./autogen.sh PACKAGE_VERSION="1.0.2" && ./configure --prefix="$(PREFIX)" PACKAGE_VERSION="1.0.2" && make
 
