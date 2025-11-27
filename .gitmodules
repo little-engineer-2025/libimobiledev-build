@@ -1,0 +1,28 @@
+[submodule "idevicerestore"]
+	path = idevicerestore
+	url = https://github.com/libimobiledevice/idevicerestore.git
+	branch = master
+[submodule "libirecovery"]
+	path = libirecovery
+	url = https://github.com/libimobiledevice/libirecovery.git
+	branch = master
+[submodule "libimobiledevice-glue"]
+	path = libimobiledevice-glue
+	url = https://github.com/libimobiledevice/libimobiledevice-glue.git
+	branch = master
+[submodule "libplist"]
+	path = libplist
+	url = https://github.com/libimobiledevice/libplist.git
+	branch = master
+[submodule "libimobiledevice"]
+	path = libimobiledevice
+	url = https://github.com/libimobiledevice/libimobiledevice.git
+	branch = master
+[submodule "libusbmuxd"]
+	path = libusbmuxd
+	url = https://github.com/libimobiledevice/libusbmuxd.git
+	branch = master
+[submodule "libtatsu"]
+	path = libtatsu
+	url = https://github.com/libimobiledevice/libtatsu.git
+	branch = master
