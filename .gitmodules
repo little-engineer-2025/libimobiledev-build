@@ -30,3 +30,11 @@
 	path = usbmuxd
 	url = https://github.com/libimobiledevice/usbmuxd.git
 	branch = master
+[submodule "ideviceinstaller"]
+	path = ideviceinstaller
+	url = https://github.com/libimobiledevice/ideviceinstaller.git
+	branch = master
+[submodule "ifuse"]
+	path = ifuse
+	url = https://github.com/libimobiledevice/ifuse.git
+	branch = master

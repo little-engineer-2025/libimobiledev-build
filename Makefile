@@ -21,6 +21,8 @@ clean:
 	cd libimobiledevice       && ( [ ! -e Makefile ] || make clean )
 	cd libplist               && ( [ ! -e Makefile ] || make clean )
 	cd usbmuxd                && ( [ ! -e Makefile ] || make clean )
+	cd ideviceinstaller       && ( [ ! -e Makefile ] || make clean )
+	cd ifuse                  && ( [ ! -e Makefile ] || make clean )
 
 .PHONY: custom
 custom:
@@ -28,8 +30,10 @@ custom:
 
 .PHONY: deps
 deps: custom
-	sudo dnf install -y libtool clang autoconf automake libusb1-devel libcurl-devel libzip-devel
+	sudo dnf install -y libtool clang autoconf automake libusb1-devel libcurl-devel libzip-devel fuse3-devel
 	git submodule init
+	[ -e ifuse ] || git submodule add -b master https://github.com/libimobiledevice/ifuse.git ifuse
+	[ -e ideviceinstaller ] || git submodule add -b master https://github.com/libimobiledevice/ideviceinstaller.git ideviceinstaller
 	[ -e usbmuxd ] || git submodule add -b master https://github.com/libimobiledevice/usbmuxd.git usbmuxd
 	[ -e idevicerestore ] || git submodule add -b master https://github.com/libimobiledevice/idevicerestore.git idevicerestore
 	[ -e libirecovery ] || git submodule add -b master https://github.com/libimobiledevice/libirecovery.git libirecovery
@@ -50,6 +54,16 @@ build:
 	$(MAKE) build-libimobiledevice
 	$(MAKE) build-idevicerestore
 	$(MAKE) build-usbmuxd
+	$(MAKE) build-ideviceinstaller
+	$(MAKE) build-ifuse
+
+.PHONY: build-ifuse
+build-ifuse:
+	cd ifuse && ./autogen.sh && ./configure --prefix="$(PREFIX)" && make && make install
+
+.PHONY: build-ideviceinstaller
+build-ideviceinstaller:
+	cd ideviceinstaller && ./autogen.sh && ./configure --prefix="$(PREFIX)" && make && make install
 
 .PHONY: build-libtatsu
 build-libtatsu:
